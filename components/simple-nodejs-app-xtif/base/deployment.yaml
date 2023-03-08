@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: simple-nodejs-app-xtif
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: simple-nodejs-app-xtif
+    app.kubernetes.io/part-of: e2e-nodejs
+  name: simple-nodejs-app-xtif
+  namespace: e2e-demos-prtw-tenant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-app
+      app.kubernetes.io/instance: simple-nodejs-app-xtif
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nodejs-app
+        app.kubernetes.io/instance: simple-nodejs-app-xtif
+    spec:
+      containers:
+      - image: quay.io/redhat-appstudio-qe/test-images-protected:q1SM9-simple-nodejs-app-xtif
+        name: my-nodejs
+        ports:
+        - containerPort: 3001
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+status: {}
